@@ -9,4 +9,7 @@ RUN apt-get update && apt-get install -y gpg curl unzip xz-utils git openssh-cli
 RUN groupadd --gid 1000 ubuntu \
   && useradd --uid 1000 --gid ubuntu --shell /bin/bash --create-home ubuntu
 
+WORKDIR /usr/src/app/
+RUN chown -R ubuntu:ubuntu /usr/src/app
+
 USER ubuntu
