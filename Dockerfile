@@ -27,6 +27,6 @@ RUN useradd --uid 1000 --gid ubuntu --groups 0 --shell /bin/bash --home-dir ${HO
 
 ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
-RUN chown ubuntu:0 ${APP_ROOT} ${HOME} && chmod g=u ${APP_ROOT} ${HOME}
+RUN chown -R ubuntu:0 ${APP_ROOT} ${HOME} && chmod -R g=u ${APP_ROOT} ${HOME}
 
 USER 1000
