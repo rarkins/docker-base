@@ -4,8 +4,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-RUN echo "APT::Install-Recommends \"false\";" | tee -a /etc/apt/apt.conf.d/renovate.conf \
- && echo "APT::Get::Upgrade \"false\";" | tee -a /etc/apt/apt.conf.d/renovate.conf
+RUN echo "APT::Install-Recommends \"false\";" | tee -a /etc/apt/apt.conf.d/renovate.conf
+RUN echo "APT::Get::Upgrade \"false\";" | tee -a /etc/apt/apt.conf.d/renovate.conf
 
 RUN apt-get update && apt-get install -y \
     gpg \
@@ -14,10 +14,10 @@ RUN apt-get update && apt-get install -y \
     xz-utils \
     git \
     openssh-client \
- && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd --gid 1000 ubuntu \
- && useradd --uid 1000 --gid ubuntu --shell /bin/bash --create-home ubuntu
+RUN groupadd --gid 1000 ubuntu
+RUN useradd --uid 1000 --gid ubuntu --shell /bin/bash --create-home ubuntu
 
 WORKDIR /usr/src/app/
 RUN chown -R ubuntu:ubuntu /usr/src/app
