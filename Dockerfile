@@ -11,6 +11,7 @@ RUN echo "APT::Get::Upgrade \"false\";" | tee -a /etc/apt/apt.conf.d/renovate.co
 RUN apt-get update && apt-get install -y \
     gpg \
     curl \
+    ca-certificates \
     unzip \
     xz-utils \
     git \
