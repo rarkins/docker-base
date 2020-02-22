@@ -9,7 +9,7 @@ RUN echo "APT::Install-Recommends \"false\";" | tee -a /etc/apt/apt.conf.d/renov
 RUN echo "APT::Get::Upgrade \"false\";" | tee -a /etc/apt/apt.conf.d/renovate.conf
 
 RUN apt-get update && apt-get install -y \
-    gpg \
+    gnupg \
     curl \
     ca-certificates \
     unzip \
@@ -18,7 +18,11 @@ RUN apt-get update && apt-get install -y \
     openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
-
+RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu bionic main\ndeb-src http://ppa.launchpad.net/git-core/ppa/ubuntu bionic main" > /etc/apt/sources.list.d/git.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24 && \
+    apt-get update && \
+    apt-get -y install git && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set up ubuntu user and home directory with access to users in the root group (0)
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
