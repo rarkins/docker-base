@@ -1,6 +1,17 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":rebaseStalePrs",
+    ":masterIssue",
+    ":semanticCommits",
+    ":semanticCommitScope(deps)"
   ],
-  "pinDigests": true
+  "pinDigests": true,
+  "prCreation": "not-pending",
+  "packageRules": [
+    {
+      "updateTypes": ["major"],
+      "masterIssueApproval": true
+    }
+  ],
 }
