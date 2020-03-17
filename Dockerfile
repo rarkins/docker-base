@@ -28,10 +28,10 @@ RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu bionic main\ndeb-src 
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
 ENV HOME=/home/ubuntu
 RUN groupadd --gid 1000 ubuntu
-RUN useradd --uid 1000 --gid ubuntu --groups 0 --shell /bin/bash --home-dir ${HOME} --create-home ubuntu
+RUN useradd --uid 1000 --gid 0 --groups ubuntu --shell /bin/bash --home-dir ${HOME} --create-home ubuntu
 
 ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
-RUN chown -R ubuntu:0 ${APP_ROOT} ${HOME} && chmod -R g=u ${APP_ROOT} ${HOME}
+RUN chown ubuntu:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
 
 USER 1000
