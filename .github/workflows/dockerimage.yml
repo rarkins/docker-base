@@ -16,8 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag renovate/base
+    - name: Test the Docker image
+      run: docker run -t --rm renovate/base git --version
     - name: Image history
       run: docker history renovate/base
