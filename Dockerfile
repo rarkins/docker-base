@@ -26,9 +26,8 @@ RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu bionic main\ndeb-src 
 
 # Set up ubuntu user and home directory with access to users in the root group (0)
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
-ENV HOME=/home/ubuntu
 RUN groupadd --gid 1000 ubuntu
-RUN useradd --uid 1000 --gid 0 --groups ubuntu --shell /bin/bash --home-dir ${HOME} --create-home ubuntu
+RUN useradd --uid 1000 --gid 0 --groups ubuntu --shell /bin/bash --create-home ubuntu
 
 ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
