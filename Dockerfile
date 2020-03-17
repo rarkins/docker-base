@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     unzip \
     xz-utils \
-    git \
     openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
