@@ -1,17 +1,5 @@
 {
   "extends": [
-    "config:base",
-    ":rebaseStalePrs",
-    ":masterIssue",
-    ":semanticCommits",
-    ":semanticCommitScope(deps)"
-  ],
-  "pinDigests": true,
-  "prCreation": "not-pending",
-  "packageRules": [
-    {
-      "updateTypes": ["major"],
-      "masterIssueApproval": true
-    }
+    "github>renovatebot/presets-internal:docker-images"
   ]
 }
