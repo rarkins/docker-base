@@ -38,6 +38,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-
 
+      - name: Build
+        uses: renovatebot/gh-action@v0
+        with:
+          command: 'build'
+
       - name: Build the Docker image
         run: |
             cache_from=$([ -d .cache ] && echo -n '--cache-from=type=local,src=.cache' || echo -n '')
