@@ -10,6 +10,7 @@ on:
 env:
   PLATFORM: linux/amd64
   DOCKER_REPO: renovate/base
+  DOCKER_CACHE_TAG: base
 
 jobs:
 
@@ -44,6 +45,7 @@ jobs:
               --load \
               --tag ${DOCKER_REPO} \
               --cache-to=type=local,dest=.cache,mode=max \
+              --cache-from=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE_TAG} \
               $cache_from \
               .
 

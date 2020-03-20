@@ -8,6 +8,7 @@ on:
 env:
   PLATFORM: linux/amd64
   DOCKER_REPO: renovate/base
+  DOCKER_CACHE_TAG: base
 
 jobs:
   build:
@@ -38,7 +39,9 @@ jobs:
           docker buildx build \
             --load \
             --tag ${DOCKER_REPO} \
+            --cache-to=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE_TAG},mode=max \
             --cache-to=type=local,dest=.cache,mode=max \
+            --cache-from=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE_TAG} \
             $cache_from \
             .
 
