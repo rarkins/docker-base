@@ -39,7 +39,7 @@ jobs:
           docker buildx build \
             --load \
             --tag ${DOCKER_REPO} \
-            --cache-to=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE},mode=max \
+            --cache-to=type=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE},mode=max \
             --cache-to=type=local,dest=.cache,mode=max \
             --cache-from=renovate/docker-build-cache:${DOCKER_CACHE} \
             $cache_from \
