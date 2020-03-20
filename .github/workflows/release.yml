@@ -49,9 +49,6 @@ jobs:
       - name: Test the Docker images
         run: docker run --rm -t ${DOCKER_REPO} git --version
 
-      - name: Docker push
-        run: docker push ${DOCKER_REPO}
-
       - name: Publish
         uses: renovatebot/gh-action@v0
         with:
