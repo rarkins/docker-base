@@ -55,4 +55,4 @@ jobs:
         with:
           command: "publish-docker"
           image: ${{ env.DOCKER_REPO }}
-          dry-run: "true"
+          # dry-run: "true"
