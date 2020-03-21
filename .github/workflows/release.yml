@@ -9,6 +9,7 @@ env:
   PLATFORM: linux/amd64
   DOCKER_REPO: renovate/base
   DOCKER_CACHE: base
+  FORCE_COLOR: 2 #https://github.com/chalk/supports-color/issues/106
 
 jobs:
   build:
