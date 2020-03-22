@@ -7,9 +7,10 @@ on:
 
 env:
   PLATFORM: linux/amd64
-  DOCKER_REPO: renovate/base
-  DOCKER_CACHE: base
-  FORCE_COLOR: 2 #https://github.com/chalk/supports-color/issues/106
+  DOCKER_REPO: renovate/ubuntu
+  DOCKER_CACHE: ubuntu
+  # https://github.com/chalk/supports-color/issues/106
+  FORCE_COLOR: true
 
 jobs:
   build:
@@ -41,11 +42,14 @@ jobs:
           cache_from=$([ -d .cache ] && echo -n '--cache-from=type=local,src=.cache' || echo -n '')
           docker buildx build \
             --load \
-            --tag ${DOCKER_REPO} \
+            --tag ${DOCKER_REPO} --tag ${DOCKER_REPO}:18.04 \
             --cache-to=type=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE},mode=max \
             --cache-from=renovate/docker-build-cache:${DOCKER_CACHE} \
             $cache_from \
             .
+
+      # Add label? Would change image id on every commit
+      # --label org.opencontainers.image.revision==${{ github.sha }} \
 
       - name: Test the Docker images
         run: docker run --rm -t ${DOCKER_REPO} git --version
@@ -55,4 +59,5 @@ jobs:
         with:
           command: "publish-docker"
           image: ${{ env.DOCKER_REPO }}
+          tags: latest,18.04
           dry-run: "true"
