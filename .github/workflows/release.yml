@@ -57,4 +57,4 @@ jobs:
           command: "publish-docker"
           image: ${{ env.DOCKER_REPO }}
           tags: latest;18.04
-          dry-run: "true"
+          dry-run: ${{github.ref != 'refs/heads/master'}}
