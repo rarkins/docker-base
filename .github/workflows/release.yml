@@ -41,11 +41,13 @@ jobs:
           docker buildx build \
             --load \
             --tag ${DOCKER_REPO} --tag ${DOCKER_REPO}:18.04 \
-#            --label org.opencontainers.image.revision==${{ github.sha }} \
             --cache-to=type=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE},mode=max \
             --cache-from=renovate/docker-build-cache:${DOCKER_CACHE} \
             $cache_from \
             .
+
+      # Add label? Would change image id on every commit
+      # --label org.opencontainers.image.revision==${{ github.sha }} \
 
       - name: Test the Docker images
         run: docker run --rm -t ${DOCKER_REPO} git --version
