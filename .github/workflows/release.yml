@@ -7,9 +7,8 @@ on:
 
 env:
   PLATFORM: linux/amd64
-  DOCKER_REPO: renovate/base
-  DOCKER_CACHE: base
-  FORCE_COLOR: 2 #https://github.com/chalk/supports-color/issues/106
+  DOCKER_REPO: renovate/ubuntu
+  DOCKER_CACHE: ubuntu
 
 jobs:
   build:
@@ -41,7 +40,8 @@ jobs:
           cache_from=$([ -d .cache ] && echo -n '--cache-from=type=local,src=.cache' || echo -n '')
           docker buildx build \
             --load \
-            --tag ${DOCKER_REPO} \
+            --tag ${DOCKER_REPO} --tag ${DOCKER_REPO}:18.04 \
+#            --label org.opencontainers.image.revision==${{ github.sha }} \
             --cache-to=type=registry,ref=renovate/docker-build-cache:${DOCKER_CACHE},mode=max \
             --cache-from=renovate/docker-build-cache:${DOCKER_CACHE} \
             $cache_from \
@@ -55,4 +55,5 @@ jobs:
         with:
           command: "publish-docker"
           image: ${{ env.DOCKER_REPO }}
-          # dry-run: "true"
+          tags: latest,18.04
+          dry-run: "true"
