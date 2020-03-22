@@ -1,5 +1,8 @@
 FROM amd64/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320
 
+LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
+LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-base"
+
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
