@@ -48,9 +48,6 @@ jobs:
             $cache_from \
             .
 
-      # Add label? Would change image id on every commit
-      # --label org.opencontainers.image.revision==${{ github.sha }} \
-
       - name: Test the Docker images
         run: docker run --rm -t ${DOCKER_REPO} git --version
 
@@ -59,5 +56,5 @@ jobs:
         with:
           command: "publish-docker"
           image: ${{ env.DOCKER_REPO }}
-          tags: latest,18.04
-          dry-run: "true"
+          tags: latest;18.04
+          dry-run: ${{github.ref != 'refs/heads/master'}}
