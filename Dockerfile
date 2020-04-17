@@ -1,8 +1,15 @@
-FROM amd64/ubuntu:18.04@sha256:b58746c8a89938b8c9f5b77de3b8cf1fe78210c696ab03a1442e235eea65d84f
+
+FROM amd64/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320
+FROM amd64/ubuntu:20.04@sha256:8e1c1ee12a539d652c371ee2f4ee66909f4f5fd8002936d8011d958f05faf989
+
+# renovate: datasource=docker depName=ubuntu versioning=docker
+ARG UBUNTU_VERSION=18.04
+
+FROM amd64/ubuntu:${UBUNTU_VERSION}
 
 LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-ubuntu"
-LABEL org.opencontainers.image.version="18.04"
+LABEL org.opencontainers.image.version="${UBUNTU_VERSION}"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
