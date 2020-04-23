@@ -2,14 +2,13 @@
 # renovate: datasource=docker depName=ubuntu versioning=docker
 ARG UBUNTU_VERSION=18.04
 
-FROM amd64/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320 as bionic
-FROM amd64/ubuntu:20.04@sha256:8e1c1ee12a539d652c371ee2f4ee66909f4f5fd8002936d8011d958f05faf989 as focal
+FROM amd64/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320 as base-18.04
+FROM amd64/ubuntu:20.04@sha256:8e1c1ee12a539d652c371ee2f4ee66909f4f5fd8002936d8011d958f05faf989 as base-20.04
 
-FROM amd64/ubuntu:${UBUNTU_VERSION}
+FROM base-${UBUNTU_VERSION}
 
 LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-ubuntu"
-LABEL org.opencontainers.image.version="${UBUNTU_VERSION}"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
@@ -43,5 +42,7 @@ RUN useradd --uid 1000 --gid 0 --groups ubuntu --shell /bin/bash --create-home u
 ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
 RUN chown ubuntu:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
+
+LABEL org.opencontainers.image.version="${UBUNTU_VERSION}"
 
 USER 1000
