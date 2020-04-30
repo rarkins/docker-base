@@ -2,10 +2,10 @@
 # renovate: datasource=docker depName=ubuntu versioning=docker
 ARG UBUNTU_VERSION=18.04
 
-FROM amd64/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320 as base-18.04
-FROM amd64/ubuntu:20.04@sha256:8e1c1ee12a539d652c371ee2f4ee66909f4f5fd8002936d8011d958f05faf989 as base-20.04
-
-FROM base-${UBUNTU_VERSION}
+#--------------------------------------
+# base image
+#--------------------------------------
+FROM ubuntu:${UBUNTU_VERSION} as base
 
 LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-ubuntu"
@@ -28,11 +28,14 @@ RUN apt-get update && apt-get install -y \
     openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu bionic main\ndeb-src http://ppa.launchpad.net/git-core/ppa/ubuntu bionic main" > /etc/apt/sources.list.d/git.list && \
+RUN set -ex; \
+    . /etc/os-release; \
+    echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu ${UBUNTU_CODENAME} main" > /etc/apt/sources.list.d/git.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24 && \
     apt-get update && \
     apt-get -y install git && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*; \
+    git --version
 
 # Set up ubuntu user and home directory with access to users in the root group (0)
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
@@ -44,5 +47,17 @@ WORKDIR ${APP_ROOT}
 RUN chown ubuntu:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
 
 LABEL org.opencontainers.image.version="${UBUNTU_VERSION}"
+
+
+#--------------------------------------
+# renovate rebuild trigger
+#--------------------------------------
+FROM amd64/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320 as trigger
+
+
+#--------------------------------------
+# final
+#--------------------------------------
+FROM base as final
 
 USER 1000

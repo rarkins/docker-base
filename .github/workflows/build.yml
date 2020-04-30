@@ -1,9 +1,14 @@
 name: build
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+      - 'renovate/**'
+
+  pull_request:
 
 env:
-  BUILDX_VERSION: v0.3.1
   # https://github.com/chalk/supports-color/issues/106
   FORCE_COLOR: true
 
@@ -27,10 +32,11 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Set up Docker Buildx ${{ env.BUILDX_VERSION }}
-        uses: crazy-max/ghaction-docker-buildx@v1
+
+      - name: docker-config
+        uses: renovatebot/internal-tools@v0
         with:
-          version: ${{ env.BUILDX_VERSION }}
+          command: docker-config
 
       - uses: actions/checkout@v2
 
