@@ -1,5 +1,6 @@
 [![Build status](https://github.com/renovatebot/docker-ubuntu/workflows/build/badge.svg)](https://github.com/renovatebot/docker-ubuntu/actions?query=workflow%3Abuild)
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/renovate/ubuntu?sort=date)](https://hub.docker.com/r/renovate/ubuntu)
+[![Version](https://img.shields.io/docker/v/renovate/ubuntu/latest)](https://hub.docker.com/r/renovate/ubuntu)
 
 # docker-ubuntu
 
