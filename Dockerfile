@@ -1,6 +1,6 @@
 
 # renovate: datasource=docker depName=ubuntu versioning=docker
-ARG UBUNTU_VERSION=18.04
+ARG UBUNTU_VERSION=18.10
 
 #--------------------------------------
 # base image
