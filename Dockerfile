@@ -52,7 +52,7 @@ LABEL org.opencontainers.image.version="${UBUNTU_VERSION}"
 #--------------------------------------
 # renovate rebuild trigger
 #--------------------------------------
-FROM amd64/ubuntu:18.04@sha256:c32bd2e76e7688eeb1bb39754fff7cdfc571626fc1abfded4f82a90de79f8d10 as trigger
+FROM amd64/ubuntu:18.04@sha256:3013b0d761d4bad6ff16dd2805887a2f2c3fc140d6206086698b5c3e44e0f7fe as trigger
 
 
 #--------------------------------------
