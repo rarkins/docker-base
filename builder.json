@@ -1,4 +1,5 @@
 {
+  "versioning": "ubuntu",
   "image": "ubuntu",
   "startVersion": "bionic",
   "cache": "docker-build-cache",
