@@ -1,6 +1,7 @@
 {
+  "versioning": "ubuntu",
   "image": "ubuntu",
-  "startVersion": "18.04",
+  "startVersion": "bionic",
   "cache": "docker-build-cache",
-  "versions": ["18.04", "20.04"]
+  "versions": ["bionic", "focal"]
 }

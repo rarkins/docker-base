@@ -1,12 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>renovatebot/presets-internal:docker-images"],
-  "packageRules": [
-    {
-      "managers": ["dockerfile"],
-      "packageNames": ["amd64/ubuntu", "ubuntu"],
-      "updateTypes": ["major", "minor"],
-      "enabled": false
-    }
-  ]
+  "extends": ["github>renovatebot/presets-internal"]
 }
