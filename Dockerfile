@@ -2,6 +2,7 @@ ARG UBUNTU_VERSION=bionic
 ARG BASE_IMAGE=ubuntu:${UBUNTU_VERSION}
 ARG USER_NAME=ubuntu
 ARG USER_ID=1000
+ARG APP_ROOT=/usr/src/app
 
 #--------------------------------------
 # base image
@@ -10,6 +11,7 @@ FROM ${BASE_IMAGE} as base
 
 ARG USER_NAME
 ARG USER_ID
+ARG APP_ROOT
 
 LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-ubuntu"
@@ -46,7 +48,6 @@ RUN set -ex; \
 RUN groupadd --gid ${USER_ID} ${USER_NAME}
 RUN useradd --uid ${USER_ID} --gid 0 --groups ${USER_NAME} --shell /bin/bash --create-home ${USER_NAME}
 
-ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
 RUN chown ${USER_NAME}:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
 
