@@ -1,11 +1,11 @@
-
-# renovate: datasource=docker depName=ubuntu versioning=docker
-ARG UBUNTU_VERSION=bionic
+ARG UBUNTU_CODENAME=bionic
 
 #--------------------------------------
 # base image
 #--------------------------------------
-FROM ubuntu:${UBUNTU_VERSION} as base
+FROM ubuntu:${UBUNTU_CODENAME} as base
+
+ARG UBUNTU_CODENAME
 
 LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-ubuntu"
@@ -46,7 +46,7 @@ ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
 RUN chown ubuntu:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
 
-LABEL org.opencontainers.image.version="${UBUNTU_VERSION}"
+LABEL org.opencontainers.image.version="${UBUNTU_CODENAME}"
 
 
 #--------------------------------------
