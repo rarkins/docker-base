@@ -1,13 +1,13 @@
-ARG UBUNTU_CODENAME=bionic
+ARG UBUNTU_ID=bionic
+ARG BASE_IMAGE=ubuntu:${UBUNTU_ID}
 ARG USER_NAME=ubuntu
 ARG USER_ID=1000
 
 #--------------------------------------
 # base image
 #--------------------------------------
-FROM ubuntu:${UBUNTU_CODENAME} as base
+FROM ${BASE_IMAGE} as base
 
-ARG UBUNTU_CODENAME
 ARG USER_NAME
 ARG USER_ID
 
