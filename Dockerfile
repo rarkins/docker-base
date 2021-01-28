@@ -21,8 +21,8 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
 RUN echo "APT::Install-Recommends \"false\";" | tee -a /etc/apt/apt.conf.d/buildpack.conf; \
-         echo "APT::Get::Upgrade \"false\";" | tee -a /etc/apt/apt.conf.d/buildpack.conf; \
-         echo "APT::Get::Install-Suggests \"false\";" | tee -a /etc/apt/apt.conf.d/buildpack.conf
+    echo "APT::Get::Upgrade \"false\";" | tee -a /etc/apt/apt.conf.d/buildpack.conf; \
+    echo "APT::Get::Install-Suggests \"false\";" | tee -a /etc/apt/apt.conf.d/buildpack.conf
 
 RUN apt-get update && apt-get install -y \
     gnupg \
@@ -44,8 +44,8 @@ RUN set -ex; \
 
 # Set up user and home directory with access to users in the root group (0)
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
-RUN groupadd --gid ${USER_ID} ${USER_NAME}; \ 
-        useradd --uid ${USER_ID} --gid 0 --groups ${USER_NAME} --shell /bin/bash --create-home ${USER_NAME}
+RUN groupadd --gid ${USER_ID} ${USER_NAME}; \
+    useradd --uid ${USER_ID} --gid 0 --groups ${USER_NAME} --shell /bin/bash --create-home ${USER_NAME}
 
 WORKDIR ${APP_ROOT}
 RUN chown ${USER_NAME}:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
