@@ -50,9 +50,6 @@ ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
 RUN chown ${USER_NAME}:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
 
-LABEL org.opencontainers.image.version="${UBUNTU_CODENAME}"
-
-
 #--------------------------------------
 # renovate rebuild trigger
 #--------------------------------------
