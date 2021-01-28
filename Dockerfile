@@ -44,8 +44,8 @@ RUN set -ex; \
 
 # Set up user and home directory with access to users in the root group (0)
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
-RUN groupadd --gid ${USER_ID} ${USER_NAME}
-RUN useradd --uid ${USER_ID} --gid 0 --groups ${USER_NAME} --shell /bin/bash --create-home ${USER_NAME}
+RUN groupadd --gid ${USER_ID} ${USER_NAME}; \ 
+        useradd --uid ${USER_ID} --gid 0 --groups ${USER_NAME} --shell /bin/bash --create-home ${USER_NAME}
 
 WORKDIR ${APP_ROOT}
 RUN chown ${USER_NAME}:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
