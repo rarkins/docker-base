@@ -1,4 +1,5 @@
 ARG UBUNTU_CODENAME=bionic
+ARG USER_NAME=ubuntu
 ARG USER_ID=1000
 
 #--------------------------------------
@@ -7,6 +8,7 @@ ARG USER_ID=1000
 FROM ubuntu:${UBUNTU_CODENAME} as base
 
 ARG UBUNTU_CODENAME
+ARG USER_NAME
 ARG USER_ID
 
 LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
@@ -39,14 +41,14 @@ RUN set -ex; \
     rm -rf /var/lib/apt/lists/*; \
     git --version
 
-# Set up ubuntu user and home directory with access to users in the root group (0)
+# Set up user and home directory with access to users in the root group (0)
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
-RUN groupadd --gid ${USER_ID} ubuntu
-RUN useradd --uid ${USER_ID} --gid 0 --groups ubuntu --shell /bin/bash --create-home ubuntu
+RUN groupadd --gid ${USER_ID} ${USER_NAME}
+RUN useradd --uid ${USER_ID} --gid 0 --groups ${USER_NAME} --shell /bin/bash --create-home ${USER_NAME}
 
 ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
-RUN chown ubuntu:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
+RUN chown ${USER_NAME}:0 ${APP_ROOT} && chmod g=u ${APP_ROOT}
 
 LABEL org.opencontainers.image.version="${UBUNTU_CODENAME}"
 
