@@ -1,4 +1,5 @@
 ARG UBUNTU_CODENAME=bionic
+ARG USER_ID=1000
 
 #--------------------------------------
 # base image
@@ -6,6 +7,7 @@ ARG UBUNTU_CODENAME=bionic
 FROM ubuntu:${UBUNTU_CODENAME} as base
 
 ARG UBUNTU_CODENAME
+ARG USER_ID
 
 LABEL maintainer="Rhys Arkins <rhys@arkins.net>"
 LABEL org.opencontainers.image.source="https://github.com/renovatebot/docker-ubuntu"
@@ -39,8 +41,8 @@ RUN set -ex; \
 
 # Set up ubuntu user and home directory with access to users in the root group (0)
 # https://docs.openshift.com/container-platform/3.6/creating_images/guidelines.html#use-uid
-RUN groupadd --gid 1000 ubuntu
-RUN useradd --uid 1000 --gid 0 --groups ubuntu --shell /bin/bash --create-home ubuntu
+RUN groupadd --gid ${USER_ID} ubuntu
+RUN useradd --uid ${USER_ID} --gid 0 --groups ubuntu --shell /bin/bash --create-home ubuntu
 
 ENV APP_ROOT=/usr/src/app
 WORKDIR ${APP_ROOT}
@@ -60,4 +62,6 @@ FROM amd64/ubuntu:bionic@sha256:2aeed98f2fa91c365730dc5d70d18e95e8d53ad4f1bbf426
 #--------------------------------------
 FROM base as final
 
-USER 1000
+ARG USER_ID
+
+USER ${USER_ID}
